@@ -19,17 +19,16 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Regenerate Gradle Wrapper
+      - name: Install correct Gradle version
         run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq gradle
-          rm -f gradlew gradlew.bat
-          gradle wrapper
-          chmod +x gradlew
-          file gradlew
+          GRADLE_VER=$(grep -o 'gradle-[0-9.]*-bin' gradle/wrapper/gradle-wrapper.properties | sed 's/gradle-//;s/-bin//')
+          echo "Gradle version needed: $GRADLE_VER"
+          wget -q "https://services.gradle.org/distributions/gradle-${GRADLE_VER}-bin.zip"
+          unzip -q "gradle-${GRADLE_VER}-bin.zip"
+          echo "$PWD/gradle-${GRADLE_VER}/bin" >> $GITHUB_PATH
 
       - name: Build Release APK
-        run: ./gradlew assembleRelease
+        run: gradle assembleRelease
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
