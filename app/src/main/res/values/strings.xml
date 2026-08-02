@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Persian Coding Keyboard</string>
+    <string name="keyboard_name">Persian Coding Keyboard</string>
+    <string name="settings_title">Keyboard Settings</string>
+    <string name="subtype_en">English</string>
+    <string name="subtype_fa">Persian</string>
+
+    <!-- Settings categories -->
+    <string name="pref_category_appearance">Appearance</string>
+    <string name="pref_category_sound">Sound &amp; Vibration</string>
+    <string name="pref_category_input">Input Behavior</string>
+    <string name="pref_category_clipboard">Clipboard</string>
+    <string name="pref_category_advanced">Advanced</string>
+
+    <!-- Theme -->
+    <string name="pref_theme_title">Theme</string>
+    <string name="pref_theme_summary">Select keyboard color theme</string>
+
+    <!-- Sound -->
+    <string name="pref_sound_enabled_title">Key Sound</string>
+    <string name="pref_sound_enabled_summary">Play sound on key press</string>
+    <string name="pref_sound_volume_title">Sound Volume</string>
+    <string name="pref_sound_volume_summary">Adjust key press volume</string>
+
+    <!-- Vibration -->
+    <string name="pref_vibration_enabled_title">Vibration</string>
+    <string name="pref_vibration_enabled_summary">Vibrate on key press</string>
+    <string name="pref_vibration_strength_title">Vibration Strength</string>
+    <string name="pref_vibration_strength_summary">Adjust vibration intensity</string>
+
+    <!-- Auto Pair -->
+    <string name="pref_auto_pair_title">Auto Pair</string>
+    <string name="pref_auto_pair_summary">Automatically insert closing brackets and quotes</string>
+
+    <!-- Smart Indent -->
+    <string name="pref_smart_indent_title">Smart Indentation</string>
+    <string name="pref_smart_indent_summary">Auto-indent after Python control structures</string>
+
+    <!-- Toolbar -->
+    <string name="pref_toolbar_enabled_title">Python Toolbar</string>
+    <string name="pref_toolbar_enabled_summary">Show Python shortcuts above keyboard</string>
+
+    <!-- Clipboard -->
+    <string name="pref_clipboard_enabled_title">Clipboard Manager</string>
+    <string name="pref_clipboard_enabled_summary">Store copied text history</string>
+    <string name="pref_clear_clipboard_title">Clear Clipboard History</string>
+    <string name="pref_clear_clipboard_summary">Delete all clipboard items</string>
+
+    <!-- Keyboard dimensions -->
+    <string name="pref_keyboard_height_title">Keyboard Height</string>
+    <string name="pref_key_size_title">Key Size</string>
+    <string name="pref_font_size_title">Font Size</string>
+
+    <!-- Reset -->
+    <string name="pref_reset_title">Reset to Defaults</string>
+    <string name="pref_reset_summary">Restore all settings to default values</string>
+</resources>

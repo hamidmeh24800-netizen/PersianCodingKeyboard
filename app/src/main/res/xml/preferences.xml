@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        android:title="@string/pref_category_appearance"
+        app:iconSpaceReserved="false">
+
+        <ListPreference
+            android:key="theme"
+            android:title="@string/pref_theme_title"
+            android:summary="@string/pref_theme_summary"
+            android:defaultValue="dark"
+            app:iconSpaceReserved="false" />
+
+        <SeekBarPreference
+            android:key="keyboard_height"
+            android:title="@string/pref_keyboard_height_title"
+            android:defaultValue="280"
+            android:max="400"
+            android:min="200"
+            app:showSeekBarValue="true"
+            app:iconSpaceReserved="false" />
+
+        <SeekBarPreference
+            android:key="key_size"
+            android:title="@string/pref_key_size_title"
+            android:defaultValue="48"
+            android:max="64"
+            android:min="32"
+            app:showSeekBarValue="true"
+            app:iconSpaceReserved="false" />
+
+        <SeekBarPreference
+            android:key="font_size"
+            android:title="@string/pref_font_size_title"
+            android:defaultValue="18"
+            android:max="24"
+            android:min="12"
+            app:showSeekBarValue="true"
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/pref_category_sound"
+        app:iconSpaceReserved="false">
+
+        <SwitchPreferenceCompat
+            android:key="sound_enabled"
+            android:title="@string/pref_sound_enabled_title"
+            android:summary="@string/pref_sound_enabled_summary"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false" />
+
+        <SeekBarPreference
+            android:key="sound_volume"
+            android:title="@string/pref_sound_volume_title"
+            android:summary="@string/pref_sound_volume_summary"
+            android:defaultValue="50"
+            android:max="100"
+            android:min="0"
+            app:showSeekBarValue="true"
+            app:iconSpaceReserved="false" />
+
+        <SwitchPreferenceCompat
+            android:key="vibration_enabled"
+            android:title="@string/pref_vibration_enabled_title"
+            android:summary="@string/pref_vibration_enabled_summary"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false" />
+
+        <SeekBarPreference
+            android:key="vibration_strength"
+            android:title="@string/pref_vibration_strength_title"
+            android:summary="@string/pref_vibration_strength_summary"
+            android:defaultValue="30"
+            android:max="100"
+            android:min="0"
+            app:showSeekBarValue="true"
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/pref_category_input"
+        app:iconSpaceReserved="false">
+
+        <SwitchPreferenceCompat
+            android:key="auto_pair"
+            android:title="@string/pref_auto_pair_title"
+            android:summary="@string/pref_auto_pair_summary"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false" />
+
+        <SwitchPreferenceCompat
+            android:key="smart_indent"
+            android:title="@string/pref_smart_indent_title"
+            android:summary="@string/pref_smart_indent_summary"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false" />
+
+        <SwitchPreferenceCompat
+            android:key="toolbar_enabled"
+            android:title="@string/pref_toolbar_enabled_title"
+            android:summary="@string/pref_toolbar_enabled_summary"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/pref_category_clipboard"
+        app:iconSpaceReserved="false">
+
+        <SwitchPreferenceCompat
+            android:key="clipboard_enabled"
+            android:title="@string/pref_clipboard_enabled_title"
+            android:summary="@string/pref_clipboard_enabled_summary"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false" />
+
+        <Preference
+            android:key="clear_clipboard"
+            android:title="@string/pref_clear_clipboard_title"
+            android:summary="@string/pref_clear_clipboard_summary"
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/pref_category_advanced"
+        app:iconSpaceReserved="false">
+
+        <Preference
+            android:key="reset_defaults"
+            android:title="@string/pref_reset_title"
+            android:summary="@string/pref_reset_summary"
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

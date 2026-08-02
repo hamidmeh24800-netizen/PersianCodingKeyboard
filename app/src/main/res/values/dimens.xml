@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="keyboard_height">280dp</dimen>
+    <dimen name="key_height">48dp</dimen>
+    <dimen name="key_padding">4dp</dimen>
+    <dimen name="key_corner_radius">8dp</dimen>
+    <dimen name="toolbar_height">40dp</dimen>
+    <dimen name="toolbar_padding">8dp</dimen>
+    <dimen name="font_size_normal">16sp</dimen>
+    <dimen name="font_size_large">18sp</dimen>
+    <dimen name="font_size_small">12sp</dimen>
+</resources>
