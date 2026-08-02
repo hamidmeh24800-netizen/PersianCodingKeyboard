@@ -19,11 +19,17 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Build Release APK
+      - name: Regenerate Gradle Wrapper
         run: |
-          tr -d '\r' < gradlew > gradlew_clean
-          chmod +x gradlew_clean
-          bash gradlew_clean assembleRelease
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq gradle
+          rm -f gradlew gradlew.bat
+          gradle wrapper
+          chmod +x gradlew
+          file gradlew
+
+      - name: Build Release APK
+        run: ./gradlew assembleRelease
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
