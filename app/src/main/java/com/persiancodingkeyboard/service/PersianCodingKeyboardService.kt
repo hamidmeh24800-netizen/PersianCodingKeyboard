@@ -221,8 +221,12 @@ class PersianCodingKeyboardService : InputMethodService(), KeyboardView.Keyboard
     }
 
     private fun handleBackspace(inputConnection: InputConnection) {
-        inputConnection.sendKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL))
-        inputConnection.sendKeyEvent(KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DEL))
+        val selectedText = inputConnection.getSelectedText(0)
+        if (selectedText.isNullOrEmpty()) {
+            inputConnection.deleteSurroundingText(1, 0)
+        } else {
+            inputConnection.commitText("", 1)
+        }
     }
 
     private fun handleEnter(inputConnection: InputConnection) {
@@ -230,8 +234,17 @@ class PersianCodingKeyboardService : InputMethodService(), KeyboardView.Keyboard
         if (smartIndent != null) {
             inputConnection.commitText(smartIndent, 1)
         } else {
-            inputConnection.sendKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER))
-            inputConnection.sendKeyEvent(KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_ENTER))
+            currentInputEditorInfo?.let {
+                if (it.actionId != 0) {
+                    inputConnection.performEditorAction(it.actionId)
+                } else {
+                    inputConnection.sendKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER))
+                    inputConnection.sendKeyEvent(KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_ENTER))
+                }
+            } ?: run {
+                inputConnection.sendKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER))
+                inputConnection.sendKeyEvent(KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_ENTER))
+            }
         }
     }
 

@@ -221,6 +221,7 @@ class KeyboardView @JvmOverloads constructor(
             textPaint.textSize = if (key.isEmoji) key.height * 0.5f else settingsRepository.fontSize.toFloat()
             textPaint.textAlign = Paint.Align.CENTER
             textPaint.typeface = Typeface.DEFAULT_BOLD
+            textPaint.isFakeBoldText = true
 
             val textY = key.y + key.height / 2 + textPaint.textSize / 3
             canvas.drawText(key.label, key.x + key.width / 2, textY, textPaint)
