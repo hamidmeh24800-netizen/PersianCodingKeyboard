@@ -4,6 +4,7 @@ import android.content.Intent
 import android.inputmethodservice.InputMethodService
 import android.os.Build
 import android.os.SystemClock
+import com.persiancodingkeyboard.data.SettingsRepository
 import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
@@ -196,7 +197,7 @@ class PersianCodingKeyboardService : InputMethodService(), KeyboardView.Keyboard
                 // Delete word
                 val ic = currentInputConnection ?: return
                 val textBefore = ic.getTextBeforeCursor(50, 0)?.toString() ?: return
-                val lastWord = textBefore.split(Regex("\s+")).lastOrNull() ?: return
+                val lastWord = textBefore.split(Regex("\\s+")).lastOrNull() ?: return
                 for (i in lastWord.indices) {
                     ic.sendKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL))
                     ic.sendKeyEvent(KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DEL))
@@ -406,15 +407,17 @@ class PersianCodingKeyboardService : InputMethodService(), KeyboardView.Keyboard
 
     private fun handleUndo(inputConnection: InputConnection) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            inputConnection.sendKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON))
-            inputConnection.sendKeyEvent(KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON))
+            val eventTime = SystemClock.uptimeMillis()
+            inputConnection.sendKeyEvent(KeyEvent(eventTime, eventTime, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_Z, 0, KeyEvent.META_CTRL_ON))
+            inputConnection.sendKeyEvent(KeyEvent(eventTime, eventTime, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_Z, 0, KeyEvent.META_CTRL_ON))
         }
     }
 
     private fun handleRedo(inputConnection: InputConnection) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            inputConnection.sendKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON or KeyEvent.META_SHIFT_ON))
-            inputConnection.sendKeyEvent(KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON or KeyEvent.META_SHIFT_ON))
+            val eventTime = SystemClock.uptimeMillis()
+            inputConnection.sendKeyEvent(KeyEvent(eventTime, eventTime, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_Z, 0, KeyEvent.META_CTRL_ON or KeyEvent.META_SHIFT_ON))
+            inputConnection.sendKeyEvent(KeyEvent(eventTime, eventTime, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_Z, 0, KeyEvent.META_CTRL_ON or KeyEvent.META_SHIFT_ON))
         }
     }
 

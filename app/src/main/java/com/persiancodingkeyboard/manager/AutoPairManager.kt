@@ -10,7 +10,8 @@ class AutoPairManager(context: android.content.Context) {
     fun handleKey(key: String, inputConnection: InputConnection?): Boolean {
         if (!settings.autoPair || inputConnection == null) return false
 
-        val closing = Constants.AUTO_PAIR_MAP[key.firstOrNull()]
+        val firstChar = key.firstOrNull() ?: return false
+        val closing = Constants.AUTO_PAIR_MAP[firstChar]
         if (closing != null) {
             inputConnection.commitText(key + closing, 1)
             // Move cursor back between the pair
