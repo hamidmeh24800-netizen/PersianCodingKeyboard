@@ -11,6 +11,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private lateinit var settingsRepository: SettingsRepository
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+
+        preferenceManager.sharedPreferencesName = Constants.PREFS_NAME
         setPreferencesFromResource(R.xml.preferences, rootKey)
         settingsRepository = SettingsRepository(requireContext())
 
