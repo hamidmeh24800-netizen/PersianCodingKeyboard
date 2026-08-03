@@ -12,6 +12,7 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import com.persiancodingkeyboard.manager.ThemeManager
+import com.persiancodingkeyboard.data.SettingsRepository
 import com.persiancodingkeyboard.util.Constants
 import kotlin.math.ceil
 
@@ -47,6 +48,7 @@ class KeyboardView @JvmOverloads constructor(
     var isCapsLock: Boolean = false
 
     private val themeManager = ThemeManager(context)
+    private val settingsRepository = SettingsRepository(context)
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val textPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val keys = mutableListOf<KeyData>()
@@ -101,7 +103,7 @@ class KeyboardView @JvmOverloads constructor(
             else -> Constants.PERSIAN_KEYS
         }
 
-        val rows = layout.size + 1 // +1 for special keys row
+        val rows = layout.size + 2 // +2 for switch keys row and special keys row
         val availableHeight = height - padding * 2
         keyHeight = (availableHeight / rows).coerceAtLeast(40f)
 
@@ -126,6 +128,33 @@ class KeyboardView @JvmOverloads constructor(
             }
             currentY += keyHeight
         }
+
+        // Switch keys row
+        val switchKeys = listOf(
+            Triple(Constants.KEY_SHIFT, 1.0f, true),
+            Triple(Constants.KEY_LANGUAGE, 1.0f, true),
+            Triple(Constants.KEY_CODE, 1.0f, true),
+            Triple(Constants.KEY_EMOJI, 1.0f, true),
+            Triple(Constants.KEY_SETTINGS, 1.0f, true)
+        )
+        val switchTotalWeight = switchKeys.sumOf { it.second.toDouble() }.toFloat()
+        val switchAvailableWidth = width - padding * 2 - (switchKeys.size - 1) * padding
+        val switchUnitWidth = switchAvailableWidth / switchTotalWeight
+        
+        var switchX = padding
+        switchKeys.forEach { (label, weight, isSpecial) ->
+            val w = switchUnitWidth * weight
+            keys.add(KeyData(
+                label = label,
+                x = switchX,
+                y = currentY,
+                width = w,
+                height = keyHeight - padding,
+                isSpecial = isSpecial
+            ))
+            switchX += w + padding
+        }
+        currentY += keyHeight
 
         // Special keys row
         val specialKeys = listOf(
@@ -189,7 +218,7 @@ class KeyboardView @JvmOverloads constructor(
 
             // Draw text
             textPaint.color = textColor
-            textPaint.textSize = if (key.isEmoji) key.height * 0.5f else key.height * 0.35f
+            textPaint.textSize = if (key.isEmoji) key.height * 0.5f else settingsRepository.fontSize.toFloat()
             textPaint.textAlign = Paint.Align.CENTER
             textPaint.typeface = Typeface.DEFAULT_BOLD
 
@@ -266,7 +295,7 @@ class KeyboardView @JvmOverloads constructor(
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val desiredHeight = 280
+        val desiredHeight = settingsRepository.keyboardHeight
         val heightMode = MeasureSpec.getMode(heightMeasureSpec)
         val heightSize = MeasureSpec.getSize(heightMeasureSpec)
 
