@@ -19,15 +19,34 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Fix gradlew line endings
+      - name: Install correct Gradle version
         run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq dos2unix
-          dos2unix gradlew
-          chmod +x gradlew
+          GRADLE_VER=$(grep -o 'gradle-[0-9.]*-bin' gradle/wrapper/gradle-wrapper.properties | sed 's/gradle-//;s/-bin//')
+          wget -q "https://services.gradle.org/distributions/gradle-${GRADLE_VER}-bin.zip"
+          unzip -q "gradle-${GRADLE_VER}-bin.zip"
+          echo "$PWD/gradle-${GRADLE_VER}/bin" >> $GITHUB_PATH
+
+      - name: Create missing launcher icons
+        run: |
+          python3 -c "
+          import os, base64
+          d = base64.b64decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==')
+          for x in ['mdpi','hdpi','xhdpi','xxhdpi','xxxhdpi']:
+              os.makedirs(f'app/src/main/res/mipmap-{x}', exist_ok=True)
+              for n in ['ic_launcher.png','ic_launcher_round.png']:
+                  open(f'app/src/main/res/mipmap-{x}/{n}','wb').write(d)
+          "
+
+      - name: Fix Kotlin source code bugs
+        run: |
+          # Fix Constants.kt syntax errors
+          sed -i 's/""",/"\""",/g' app/src/main/java/com/persiancodingkeyboard/util/Constants.kt
+          sed -i 's/"\\\\\\\",/"\\\\\\\\",/g' app/src/main/java/com/persiancodingkeyboard/util/Constants.kt
+          sed -i 's/"\\|",/"|",/g' app/src/main/java/com/persiancodingkeyboard/util/Constants.kt
+          echo "Fixed Constants.kt"
 
       - name: Build Release APK
-        run: ./gradlew assembleRelease
+        run: gradle assembleRelease
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
