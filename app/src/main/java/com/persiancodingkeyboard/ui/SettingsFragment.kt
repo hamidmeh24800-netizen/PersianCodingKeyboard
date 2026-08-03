@@ -18,6 +18,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         setupSoundPreferences()
         setupVibrationPreferences()
         setupClipboardPreference()
+        setupAppearancePreferences()
         setupResetPreference()
     }
 
@@ -84,6 +85,28 @@ class SettingsFragment : PreferenceFragmentCompat() {
             setOnPreferenceClickListener {
                 val clipboardManager = com.persiancodingkeyboard.manager.ClipboardManager(requireContext())
                 clipboardManager.clear()
+                true
+            }
+        }
+    }
+
+
+    private fun setupAppearancePreferences() {
+        findPreference<SeekBarPreference>(Constants.KEY_KEYBOARD_HEIGHT)?.apply {
+            setOnPreferenceChangeListener { _, newValue ->
+                settingsRepository.keyboardHeight = newValue as Int
+                true
+            }
+        }
+        findPreference<SeekBarPreference>(Constants.KEY_KEY_SIZE)?.apply {
+            setOnPreferenceChangeListener { _, newValue ->
+                settingsRepository.keySize = newValue as Int
+                true
+            }
+        }
+        findPreference<SeekBarPreference>(Constants.KEY_FONT_SIZE)?.apply {
+            setOnPreferenceChangeListener { _, newValue ->
+                settingsRepository.fontSize = newValue as Int
                 true
             }
         }

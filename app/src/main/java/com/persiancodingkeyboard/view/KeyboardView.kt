@@ -55,7 +55,7 @@ class KeyboardView @JvmOverloads constructor(
     private var pressedKey: KeyData? = null
     private var keyHeight = 0f
     private var keyWidth = 0f
-    private var padding = 4f
+    private var padding = 8f
     private var cornerRadius = 8f
 
     private val handler = Handler(Looper.getMainLooper())
@@ -96,16 +96,16 @@ class KeyboardView @JvmOverloads constructor(
         if (width <= 0 || height <= 0) return
 
         val layout = when (currentLayout) {
-            Constants.LAYOUT_PERSIAN -> Constants.PERSIAN_KEYS
-            Constants.LAYOUT_ENGLISH -> if (isShifted || isCapsLock) Constants.ENGLISH_KEYS_SHIFT else Constants.ENGLISH_KEYS
+            Constants.LAYOUT_PERSIAN -> Constants.PERSIAN_NUMERIC_KEYS + Constants.PERSIAN_KEYS
+            Constants.LAYOUT_ENGLISH -> Constants.ENGLISH_NUMERIC_KEYS + if (isShifted || isCapsLock) Constants.ENGLISH_KEYS_SHIFT else Constants.ENGLISH_KEYS
             Constants.LAYOUT_CODE -> Constants.CODE_KEYS
             Constants.LAYOUT_EMOJI -> Constants.EMOJI_KEYS
-            else -> Constants.PERSIAN_KEYS
+            else -> Constants.PERSIAN_NUMERIC_KEYS + Constants.PERSIAN_KEYS
         }
 
         val rows = layout.size + 2 // +2 for switch keys row and special keys row
         val availableHeight = height - padding * 2
-        keyHeight = (availableHeight / rows).coerceAtLeast(40f)
+        keyHeight = (availableHeight / rows).coerceAtLeast(settingsRepository.keySize.toFloat())
 
         var currentY = padding
 

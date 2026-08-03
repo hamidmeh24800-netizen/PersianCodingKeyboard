@@ -17,7 +17,7 @@
             android:key="keyboard_height"
             android:title="@string/pref_keyboard_height_title"
             android:defaultValue="280"
-            android:max="400"
+            android:max="600"
             android:min="200"
             app:showSeekBarValue="true"
             app:iconSpaceReserved="false" />
@@ -26,7 +26,7 @@
             android:key="key_size"
             android:title="@string/pref_key_size_title"
             android:defaultValue="48"
-            android:max="64"
+            android:max="120"
             android:min="32"
             app:showSeekBarValue="true"
             app:iconSpaceReserved="false" />
@@ -35,7 +35,7 @@
             android:key="font_size"
             android:title="@string/pref_font_size_title"
             android:defaultValue="18"
-            android:max="24"
+            android:max="40"
             android:min="12"
             app:showSeekBarValue="true"
             app:iconSpaceReserved="false" />

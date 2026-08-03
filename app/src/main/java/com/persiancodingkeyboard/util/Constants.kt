@@ -65,12 +65,22 @@ object Constants {
         "break", "continue"
     )
 
+    // Persian numeric row
+    val PERSIAN_NUMERIC_KEYS = listOf(
+        listOf("۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹", "۰")
+    )
+
     // Persian layout
     val PERSIAN_KEYS = listOf(
         listOf("ض", "ص", "ث", "ق", "ف", "غ", "ع", "ه", "خ", "ح"),
         listOf("ج", "چ", "پ", "ش", "س", "ی", "ب", "ل", "ا", "ت"),
         listOf("ن", "م", "ک", "گ", "ظ", "ط", "ز", "ر", "ذ", "د"),
         listOf("ئ", "و", "ژ", "آ", "؟", "،", "؛", "٪", ".", "ـ")
+    )
+
+    // English numeric row
+    val ENGLISH_NUMERIC_KEYS = listOf(
+        listOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
     )
 
     // English layout
